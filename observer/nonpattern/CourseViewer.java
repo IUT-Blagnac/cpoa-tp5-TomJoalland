@@ -152,17 +152,17 @@ public class CourseViewer extends JFrame implements ActionListener,
 		}
 	}
 	
-	public void paintPie(Graphics g) {
+		public void paintPie(Graphics g) {
 		  super.paint(g);
 		  int radius = 100;
 		  double total = 0.0;
-		  for (int i = 0; i < sliders.size(); i++) {
-			  total += sliders[i];
+		  for (int i = 0; i < courseData.size(); i++) {
+			  total += courseData[i];
 		  }
 		  if (total != 0) {
 			  double startAngle = 0.0;
-			  for (int i = 0; i < sliders.size(); i++) {
-				  double ratio = (sliders[i] / total) * 360.0;
+			  for (int i = 0; i < courseData.size(); i++) {
+				  double ratio = (courseData[i] / total) * 360.0;
 				  g.setColor(LayoutConstants.subjectColors[i%LayoutConstants.subjectColors.length]);
 				  g.fillArc(LayoutConstants.xOffset, LayoutConstants.yOffset + 300, 2 *radius, 2 * radius, (int) startAngle, (int) ratio);
 				  startAngle += ratio;
@@ -213,6 +213,8 @@ public class CourseViewer extends JFrame implements ActionListener,
 	private JPanel coursePanel;
 
 	private Vector<JSlider> sliders;
+
+	private Vector<CourseRecord> courseData;
 
 	private JScrollPane scrollPane;
 
