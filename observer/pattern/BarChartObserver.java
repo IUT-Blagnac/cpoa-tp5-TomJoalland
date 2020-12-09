@@ -62,6 +62,24 @@ public class BarChartObserver extends JPanel implements Observer {
 							+ LayoutConstants.graphHeight + 20);
 		}
 	}
+
+		public void paintPie(Graphics g) {
+		  super.paint(g);
+		  int radius = 100;
+		  double total = 0.0;
+		  for (int i = 0; i < sliders.size(); i++) {
+			  total += sliders[i];
+		  }
+		  if (total != 0) {
+			  double startAngle = 0.0;
+			  for (int i = 0; i < sliders.size(); i++) {
+				  double ratio = (sliders[i] / total) * 360.0;
+				  g.setColor(LayoutConstants.subjectColors[i%LayoutConstants.subjectColors.length]);
+				  g.fillArc(LayoutConstants.xOffset, LayoutConstants.yOffset + 300, 2 *radius, 2 * radius, (int) startAngle, (int) ratio);
+				  startAngle += ratio;
+			  }
+		  }
+	}
 	
 	/**
 	 * Informs this observer that the observed CourseData object has changed
