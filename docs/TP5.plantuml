@@ -1,0 +1,33 @@
+@startuml oberver.nonpattern
+
+class JFrame{
+
+}
+
+interface ActionListener{
+
+}
+
+interface ChangeListener{
+
+}
+
+class CourseViewer{
+- JPanel sliderPanel
+- JPanel corsePanel
+- Vector<JSlider> sliders
+- JScrollPane scrollPane
+- JButton button
++ CorseViewer()
++ void addCourse(CourseRecord courseRecord)
++ void paint(Graphics g)
++ void actionPerformed(ActionEvent arg0)
++ void stateChanged(ChangeEvent arg0)
++ void main(String[] args)
+}
+
+CourseViewer -|> JFrame
+CourseViewer ..|> ActionListener
+CourseViewer ..|> ChangeListener
+
+@enduml

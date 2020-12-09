@@ -1,0 +1,63 @@
+@startuml observer.pattern
+
+class JPanel{
+
+}
+
+interface ActionListener{
+
+}
+
+interface ChangeListener{
+
+}
+
+interface Observer{
+void update(Observable o)
+}
+
+class BarChartObserver{
+- Vector<CourseRecord> courseData
++ BarChartObserver(CourseData data)
++ void paint(Graphics g)
++ void update(Observable o)
+}
+
+class CourseController{
+- JPanel corsePanel
+- Vector<JSlider> sliders
++ CourseController()
++ void addCourse(CourseRecord record)
++ void update(Observable o)
++ void actionPerformed(ActionEvent arg0)
++ void stateChanged(ChangeEvent arg0)
++ void main(String[] args)
+}
+
+abstract Observable{
+~ Vector<Observer> observers
++ Observable()
++ void attach(Observer o)
++ void detach(Observer o)
++ void notifyObservers()
++ Object getUpdate()
+}
+
+class CourseData{
+- Vector<CourseRecord> courseData
++ CourseData()
++ void addCourseRecord(CourseRecord courseRecord)
++ void changeCourseRecord(String subjectName, int numOfStudebts)
++ Vector<CourseRecord> getUpdate()
+}
+
+BarChartObserver -|> JPanel
+BarChartObserver ..|> Observer
+CourseController -|> JPanel
+CourseController ..|> Observer
+CourseController ..|> ActionListener
+CourseController ..|> ChangeListener
+CourseController -> "1" CourseData : courseData
+CourseData -|> Observable
+
+@enduml
