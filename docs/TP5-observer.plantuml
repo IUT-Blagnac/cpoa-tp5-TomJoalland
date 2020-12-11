@@ -1,63 +1,64 @@
-@startuml observer.pattern
+@startuml
+    namespace observer.pattern {
 
-class JPanel{
+        class CourseController [[CourseController.html]] {
+            +CourseController(CourseData)
+            +addCourse(CourseRecord): void
+            +update(Observable): void
+            +actionPerformed(ActionEvent): void
+            +stateChanged(ChangeEvent): void
+            {static} +main(String[]): void
+        }
 
-}
+        abstract class Observable [[Observable.html]] {
+            +attach(Observer): void
+            +detach(Observer): void
+            +notifyObservers(): void
+            {abstract} +getUpdate(): Object
+        }
 
-interface ActionListener{
+        class BarChartObserver [[BarChartObserver.html]] {
+            +BarChartObserver(CourseData)
+            +paint(Graphics): void
+            +update(Observable): void
+        }
 
-}
+        class CourseData [[CourseData.html]] {
+            +addCourseRecord(CourseRecord): void
+            +changeCourseRecord(String, int): void
+            +getUpdate(): Vector<CourseRecord>
+        }
 
-interface ChangeListener{
+        interface Observer [[Observer.html]] {
+            {abstract} +update(Observable): void
+        }
 
-}
+        javax.swing.JPanel <|-- CourseController
+        Observer <|.. CourseController
+        javax.swing.event.ChangeListener <|.. CourseController
+        java.awt.event.ActionListener <|.. CourseController
+        Observable --> "*" Observer: observers
+        javax.swing.JPanel <|-- BarChartObserver
+        Observer <|.. BarChartObserver
+        Observable <|-- CourseData
+    }
 
-interface Observer{
-void update(Observable o)
-}
+    namespace javax.swing {
+        class JPanel [[https://docs.oracle.com/javase/8/docs/api/javax/swing/JPanel.html?is-external=true]] {
+        }
+    }
 
-class BarChartObserver{
-- Vector<CourseRecord> courseData
-+ BarChartObserver(CourseData data)
-+ void paint(Graphics g)
-+ void update(Observable o)
-}
+    namespace javax.swing.event {
+        interface ChangeListener [[https://docs.oracle.com/javase/8/docs/api/javax/swing/event/ChangeListener.html?is-external=true]] {
+            {abstract} +stateChanged(ChangeEvent): void
+        }
+    }
 
-class CourseController{
-- JPanel corsePanel
-- Vector<JSlider> sliders
-+ CourseController()
-+ void addCourse(CourseRecord record)
-+ void update(Observable o)
-+ void actionPerformed(ActionEvent arg0)
-+ void stateChanged(ChangeEvent arg0)
-+ void main(String[] args)
-}
+    namespace java.awt.event {
+        interface ActionListener [[https://docs.oracle.com/javase/8/docs/api/java/awt/event/ActionListener.html?is-external=true]] {
+            {abstract} +actionPerformed(ActionEvent): void
+        }
+    }
 
-abstract Observable{
-~ Vector<Observer> observers
-+ Observable()
-+ void attach(Observer o)
-+ void detach(Observer o)
-+ void notifyObservers()
-+ Object getUpdate()
-}
-
-class CourseData{
-- Vector<CourseRecord> courseData
-+ CourseData()
-+ void addCourseRecord(CourseRecord courseRecord)
-+ void changeCourseRecord(String subjectName, int numOfStudebts)
-+ Vector<CourseRecord> getUpdate()
-}
-
-BarChartObserver -|> JPanel
-BarChartObserver ..|> Observer
-CourseController -|> JPanel
-CourseController ..|> Observer
-CourseController ..|> ActionListener
-CourseController ..|> ChangeListener
-CourseController -> "1" CourseData : courseData
-CourseData -|> Observable
-
+    center footer UMLDoclet 2.0.12, PlantUML 1.2020.16
 @enduml

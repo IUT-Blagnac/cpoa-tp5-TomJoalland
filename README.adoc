@@ -102,16 +102,16 @@ endif::[]
 //------------------------------------ 
 == {assignment}
 
-{lastName}:: JOALLAND
+{lastName}:: CHAUVIN
 
-{firstName}:: Tom
+{firstName}:: Etienne
 
 {group} #::
 
 [%interactive]
 - [ ] {Enseignants}
-- [ ] 1
-- [x] 2
+- [X] 1
+- [ ] 2
 - [ ] 3
 - [ ] 4
 - [ ] Innopolis

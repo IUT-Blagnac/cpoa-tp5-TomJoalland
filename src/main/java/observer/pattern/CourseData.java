@@ -1,5 +1,6 @@
 package observer.pattern;
 
+import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.swing.JOptionPane;
@@ -24,7 +25,7 @@ public class CourseData extends Observable {
 	 * @param courseRecord
 	 *            the CourseRecord to be added
 	 */
-	public void addCourseRecord(CourseRecord courseRecord) {
+	public void addCourseRecord(CourseRecord courseRecord, ArrayList<Observer> observers) {
 		boolean alreadyExists = false;
 		for (int i = 0; i < courseData.size(); i++) {
 			CourseRecord record = courseData.elementAt(i);
@@ -40,7 +41,11 @@ public class CourseData extends Observable {
 		}
 		if (!alreadyExists)
 			this.courseData.addElement(courseRecord);
-		this.notifyObservers();
+		if (observers != null){
+			this.notifyObservers(courseData, observers);
+		}else{
+		this.notifyObservers(courseData);
+		}
 	}
 
 	/**
@@ -59,7 +64,7 @@ public class CourseData extends Observable {
 				i = courseData.size();
 			}
 		}
-		this.notifyObservers();
+		this.notifyObservers(courseData);
 	}
 
 	/**
@@ -68,6 +73,7 @@ public class CourseData extends Observable {
 	 * 
 	 * @return vector of course data
 	 */
+	@SuppressWarnings("unchecked")
 	public Vector<CourseRecord> getUpdate() {
 		return (Vector<CourseRecord>) courseData.clone();
 	}

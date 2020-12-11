@@ -3,10 +3,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.iutblagnac</groupId>
-	<artifactId>pizzeria</artifactId>
-	<version>1.0</version>
-	<name>pizzeria</name>
-	<description>The Pizzeria factory example</description>
+	<artifactId>tp5</artifactId>
+	<version>0.1</version>
+	<name>tp5</name>
+	<description>Observer Pattern Illustration</description>
 
 	<properties>
 		<junit.version>4.13</junit.version>
@@ -53,7 +53,8 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>tp4</mainClass>
+							<mainClass>observer.pattern.CourseController</mainClass>
+							<!--<mainClass>observer.nonpattern.CourseViewer</mainClass>-->
 						</manifest>
 					</archive>
 				</configuration>

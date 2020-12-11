@@ -1,33 +1,38 @@
-@startuml oberver.nonpattern
+@startuml
+    namespace observer.nonpattern {
 
-class JFrame{
+        class CourseViewer [[CourseViewer.html]] {
+            +addCourse(CourseRecord): void
+            +paint(Graphics): void
+            +actionPerformed(ActionEvent): void
+            +stateChanged(ChangeEvent): void
+            {static} +main(String[]): void
+        }
 
-}
+        javax.swing.JFrame <|-- CourseViewer
+        java.awt.event.ActionListener <|.. CourseViewer
+        javax.swing.event.ChangeListener <|.. CourseViewer
+    }
 
-interface ActionListener{
+    namespace javax.swing {
+        class JFrame [[https://docs.oracle.com/javase/8/docs/api/javax/swing/JFrame.html?is-external=true]] {
+            #rootPane: JRootPane
+            #rootPaneCheckingEnabled: boolean
+            #accessibleContext: AccessibleContext
+        }
+    }
 
-}
+    namespace java.awt.event {
+        interface ActionListener [[https://docs.oracle.com/javase/8/docs/api/java/awt/event/ActionListener.html?is-external=true]] {
+            {abstract} +actionPerformed(ActionEvent): void
+        }
+    }
 
-interface ChangeListener{
+    namespace javax.swing.event {
+        interface ChangeListener [[https://docs.oracle.com/javase/8/docs/api/javax/swing/event/ChangeListener.html?is-external=true]] {
+            {abstract} +stateChanged(ChangeEvent): void
+        }
+    }
 
-}
-
-class CourseViewer{
-- JPanel sliderPanel
-- JPanel corsePanel
-- Vector<JSlider> sliders
-- JScrollPane scrollPane
-- JButton button
-+ CorseViewer()
-+ void addCourse(CourseRecord courseRecord)
-+ void paint(Graphics g)
-+ void actionPerformed(ActionEvent arg0)
-+ void stateChanged(ChangeEvent arg0)
-+ void main(String[] args)
-}
-
-CourseViewer -|> JFrame
-CourseViewer ..|> ActionListener
-CourseViewer ..|> ChangeListener
-
+    center footer UMLDoclet 2.0.12, PlantUML 1.2020.16
 @enduml

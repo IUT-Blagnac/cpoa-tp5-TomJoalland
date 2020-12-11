@@ -1,6 +1,9 @@
 package observer.pattern;
 
+import java.util.ArrayList;
 import java.util.Vector;
+
+import observer.CourseRecord;
 
 /**
  * An abstract class for all Observable subjects
@@ -39,10 +42,20 @@ public abstract class Observable {
 	/**
 	 * Notify all Observers that Subject has changed
 	 */
-	public void notifyObservers() {
+	public void notifyObservers(Vector<CourseRecord> courseData) {
 		for (int i = 0; i < observers.size(); i++) {
 			Observer observer = observers.elementAt(i);
-			observer.update(this);
+			observer.update(this, courseData);
+		}
+	}
+
+		/**
+	 * Notify the observers that Subject has changed
+	 * It is a smart push
+	 */
+	public void notifyObservers(Vector<CourseRecord> courseData, ArrayList<Observer> observers) {
+		for (int i = 0; i < observers.size(); i++) {
+			observers.get(i).update(this, courseData);
 		}
 	}
 

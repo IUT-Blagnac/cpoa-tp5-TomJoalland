@@ -43,7 +43,7 @@ public class BarChartObserver extends JPanel implements Observer {
 		LayoutConstants.paintBarChartOutline(g, this.courseData.size());
 		for (int i = 0; i < courseData.size(); i++) {
 			CourseRecord record = (CourseRecord) courseData.elementAt(i);
-			g.setColor(Color.blue);
+			g.setColor(LayoutConstants.courseColours[i]);
 			g.fillRect(
 					LayoutConstants.xOffset + (i + 1)
 							* LayoutConstants.barSpacing + i
@@ -63,33 +63,15 @@ public class BarChartObserver extends JPanel implements Observer {
 		}
 	}
 
-		public void paintPie(Graphics g) {
-		  super.paint(g);
-		  int radius = 100;
-		  double total = 0.0;
-		  for (int i = 0; i < courseData.size(); i++) {
-			  total += courseData[i];
-		  }
-		  if (total != 0) {
-			  double startAngle = 0.0;
-			  for (int i = 0; i < courseData.size(); i++) {
-				  double ratio = (courseData[i] / total) * 360.0;
-				  g.setColor(LayoutConstants.subjectColors[i%LayoutConstants.subjectColors.length]);
-				  g.fillArc(LayoutConstants.xOffset, LayoutConstants.yOffset + 300, 2 *radius, 2 * radius, (int) startAngle, (int) ratio);
-				  startAngle += ratio;
-			  }
-		  }
-	}
-	
 	/**
 	 * Informs this observer that the observed CourseData object has changed
 	 * 
 	 * @param o
 	 *            the observed CourseData object that has changed
 	 */
-	public void update(Observable o) {
-		CourseData data = (CourseData) o;
-		this.courseData = data.getUpdate();
+	public void update(Observable o, Vector<CourseRecord> courseData) {
+		//this.courseData = data.getUpdate();
+		this.courseData = courseData;
 
 		this.setPreferredSize(new Dimension(2 * LayoutConstants.xOffset
 				+ (LayoutConstants.barSpacing + LayoutConstants.barWidth)
